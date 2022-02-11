@@ -18,9 +18,14 @@ namespace Pra.Tamagotchi.Core.Entities
                 if (value < 0)
                 {
                     value = 0;
-                } 
-                
-                health = value; 
+                }
+
+                if (Health == 0)
+                {
+                    Status = TamagotchiStatus.Died;
+                }
+
+                health = value;
             }
         }
 
@@ -29,27 +34,21 @@ namespace Pra.Tamagotchi.Core.Entities
             get { return size; }
             protected set 
             {
-                /*if (value < value)
+                if (value > size)
                 {
-                    value = value;
-                }*/
-                    size = value; 
+                    size = value;
+                }
+                  
             }
         }
 
 
-        public TamagotchiStatus Status { get; protected set; } = TamagotchiStatus.Healthy;
+        public TamagotchiStatus Status { get; private set; } = TamagotchiStatus.Healthy;
 
         public Tamagotchi() 
         {
             Health = 100;
             Size = 1;
-            
-            if (Health == 0)
-            {
-                Status = TamagotchiStatus.Died;
-            }
-
         }
 
         public abstract void Grow();
