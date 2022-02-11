@@ -8,10 +8,7 @@ namespace Pra.Tamagotchi.Core.Entities
 {
     public class Egg : Tamagotchi, IHatchable
     {
-        public Egg() : base()
-        {
-
-        }
+        
         public override void Grow()
         {
             Size++;
@@ -19,20 +16,21 @@ namespace Pra.Tamagotchi.Core.Entities
 
         public Chick Hatch()
         {
-            Chick chick = new Chick(Status);
+            TamagotchiStatus chickStatus;
             if (Size < 3)
             {
                 throw new InvalidOperationException("Ei is niet groot genoeg om uit te broeden");
             }
-            else if( Size >= 3 && Size < 6)
+            else if( Size < 6)
             {
-                Status = random.Next(2) == 0 ? TamagotchiStatus.Healthy : TamagotchiStatus.Sick;
+                //int index = random.Next(2);
+                chickStatus = (TamagotchiStatus)random.Next(2);
             }
             else
             {
-                Status = TamagotchiStatus.Healthy;
+                chickStatus = TamagotchiStatus.Healthy;
             }
-            return chick ;
+            return new Chick(chickStatus);
         }
 
         public override string ToString()
